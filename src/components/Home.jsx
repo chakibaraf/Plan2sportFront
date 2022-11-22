@@ -1,30 +1,33 @@
 import React from 'react'
 import { getCompetionsService } from './../services/competionsService';
 import { useEffect, useState } from 'react';
+import Cardo from './Card';
+
+
 
 
 function Home() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     getAllCompetions();
   }, []);
 
   const getAllCompetions = () => {
-    getCompetionsService().then((res) => setData(res));
+    getCompetionsService().then((res) => setData(res.competitions));
   }
 
   return (
-    <div>
-      <ul>
-        <li>{data.count}</li>
+    <div className='contener_carte'>
+      
 
-        {data.competitions.map((value, index) => {
-          return <li key={index}>{value.name}</li>
+        {data.map((value, index) => {
+          return <Cardo key = {index} value={value}/>
+
+        
         }
 
         )}
-      </ul>
     </div>
   )
 }
